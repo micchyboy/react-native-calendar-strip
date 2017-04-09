@@ -43,10 +43,10 @@ export default StyleSheet.create({
     dateContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 10,
-        width: 50,
-        height: 50,
-        borderRadius: 50 / 2
+        padding: 0,
+        width: 44,
+        height: 44,
+        borderRadius: 44 / 2
     },
     dateName: {
         fontSize: 10,

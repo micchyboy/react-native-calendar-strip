@@ -30,7 +30,7 @@ local.properties
 #
 node_modules/
 npm-debug.log
-example/ReactNativeCalendarStripExample/node_modules/
+example/
 
 # BUCK
 buck-out/
