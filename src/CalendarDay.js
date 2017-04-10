@@ -9,7 +9,7 @@ import {
     View,
     LayoutAnimation,
     Easing,
-    TouchableOpacity
+    TouchableWithoutFeedback
 } from 'react-native';
 import styles from './Calendar.style.js';
 
@@ -126,7 +126,7 @@ export default class CalendarDay extends Component {
         }
 
         return (
-          <TouchableOpacity onPress={this.props.onDateSelected.bind(this, this.props.date)}>
+          <TouchableWithoutFeedback onPress={this.props.onDateSelected.bind(this, this.props.date)}>
             <View key={this.props.date} style={[styles.dateContainer, dateViewStyle]}>
               { this.props.showDayName &&
                 <Text style={dateNameStyle}>{this.props.date.format('ddd').toUpperCase()}</Text>
@@ -135,7 +135,7 @@ export default class CalendarDay extends Component {
                 <Text style={dateNumberStyle}>{this.props.date.date()}</Text>
               }
             </View>
-          </TouchableOpacity>
+          </TouchableWithoutFeedback>
         );
     }
 }

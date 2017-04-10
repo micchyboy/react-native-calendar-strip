@@ -9,11 +9,13 @@ import {
     Image,
     Animated,
     Easing,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import CalendarDay from './CalendarDay';
 import moment from 'moment';
 import styles from './Calendar.style.js';
+import DraggableView from './DraggableView'
 
 //Just a shallow array of 7 elements
 const arr = [];
@@ -29,6 +31,8 @@ export default class CalendarStrip extends Component {
     static propTypes = {
         style: React.PropTypes.any,
         calendarColor: React.PropTypes.string,
+        onSwipeLeft: React.PropTypes.func,
+        onSwipeRight: React.PropTypes.func,
 
         startingDate: React.PropTypes.any,
         selectedDate: React.PropTypes.any,
@@ -73,7 +77,7 @@ export default class CalendarStrip extends Component {
 
     static defaultProps = {
         startingDate: moment(),
-        useIsoWeekday: true,
+        useIsoWeekday: false,
         showMonth: true,
         showDate: true,
         iconLeft: require('./img/left-arrow-black.png'),
@@ -355,7 +359,7 @@ export default class CalendarStrip extends Component {
             }
             let enabled = this.isDateAllowed(date);
             return (
-                <Animated.View key={index} style={{opacity: opacityAnim, flex: 1}}>
+                <View key={index} >
                     <CalendarDay
                         date={date}
                         selected={this.isDateSelected(date)}
@@ -375,7 +379,7 @@ export default class CalendarStrip extends Component {
                         styleWeekend={this.props.styleWeekend}
                         daySelectionAnimation={this.props.daySelectionAnimation}
                     />
-                </Animated.View>
+                </View>
             );
         });
         let leftSelector = this.props.leftSelector   || <Image style={[styles.icon, this.props.iconStyle, this.props.iconLeftStyle]} source={this.props.iconLeft}/>;
@@ -385,24 +389,31 @@ export default class CalendarStrip extends Component {
         // calendarHeader renders above the dates & left/right selectors if dates are shown.
         // However if dates are hidden, the header shows between the left/right selectors.
         return (
-            <View style={[styles.calendarContainer, {backgroundColor: this.props.calendarColor}, this.props.style]}>
-                { this.props.showDate && calendarHeader }
-                <View style={styles.datesStrip}>
-                    <TouchableOpacity style={[styles.iconContainer, this.props.iconContainer]} onPress={this.getPreviousWeek}>
-                        { leftSelector }
-                    </TouchableOpacity>
-                    { this.props.showDate ?
-                      <View style={styles.calendarDates}>
-                          {datesRender}
+            <ScrollView scrollEnabled={false}>
+                <View style={[styles.calendarContainer, {backgroundColor: this.props.calendarColor}, this.props.style]}>
+                    <View>
+                        { this.props.showDate && calendarHeader }
+                        <View style={styles.datesStrip}>
+                            <TouchableOpacity style={[styles.iconContainer, this.props.iconContainer]} onPress={this.getPreviousWeek}>
+                                { leftSelector }
+                            </TouchableOpacity>
+                            <DraggableView onSwipeLeft={this.props.onSwipeLeft} onSwipeRight={this.props.onSwipeRight}>
+                            { this.props.showDate ?
+                              <View style={styles.calendarDates}>
+                                  {datesRender}
+                              </View>
+                              :
+                              calendarHeader
+                            }
+                            </DraggableView>
+                            <TouchableOpacity style={[styles.iconContainer, this.props.iconContainer]} onPress={this.getNextWeek}>
+                                { rightSelector }
+                            </TouchableOpacity>
                       </View>
-                      :
-                      calendarHeader
-                    }
-                    <TouchableOpacity style={[styles.iconContainer, this.props.iconContainer]} onPress={this.getNextWeek}>
-                        { rightSelector }
-                    </TouchableOpacity>
-              </View>
-            </View>
+                  </View>
+                  
+                </View>
+            </ScrollView>
         );
     }
 }

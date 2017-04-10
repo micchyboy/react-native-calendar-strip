@@ -44,9 +44,9 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 0,
-        width: 44,
-        height: 44,
-        borderRadius: 44 / 2
+        width: 40,
+        height: 40,
+        borderRadius: 40 / 2
     },
     dateName: {
         fontSize: 10,
@@ -58,7 +58,7 @@ export default StyleSheet.create({
         textAlign: 'center'
     },
     dateNumber: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center'
     },
