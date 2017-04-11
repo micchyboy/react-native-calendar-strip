@@ -16,7 +16,6 @@ import CalendarDay from './CalendarDay';
 import moment from 'moment';
 import styles from './Calendar.style.js';
 import DraggableView from './DraggableView'
-import SlideInView from './SlideInView'
 
 //Just a shallow array of 7 elements
 const arr = [];
