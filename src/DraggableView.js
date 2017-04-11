@@ -49,7 +49,7 @@ export default class DraggableView extends React.Component {
    }
 
    resetAnimation(origin) {
-        this.setState({fadeAnim: new Animated.ValueXY({x: origin === 'left' ? width : 0, y: 0}), left: 0},
+        this.setState({fadeAnim: new Animated.ValueXY({x: origin === 'left' ? width : 0, y: 0})},
           this.triggerSlideIn)
     }
 
