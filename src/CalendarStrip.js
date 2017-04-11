@@ -16,6 +16,7 @@ import CalendarDay from './CalendarDay';
 import moment from 'moment';
 import styles from './Calendar.style.js';
 import DraggableView from './DraggableView'
+import SlideInView from './SlideInView'
 
 //Just a shallow array of 7 elements
 const arr = [];
@@ -116,13 +117,13 @@ export default class CalendarStrip extends Component {
         this.onDateSelected = this.onDateSelected.bind(this);
         this.isDateSelected = this.isDateSelected.bind(this);
         this.formatCalendarHeader = this.formatCalendarHeader.bind(this);
-        this.animate = this.animate.bind(this);
+        //this.animate = this.animate.bind(this);
         this.resetAnimation = this.resetAnimation.bind(this);
     }
 
     //Animate showing of CalendarDay elements
     componentDidMount() {
-        this.animate();
+        //this.animate();
     }
 
     //Receiving props and set selected date
@@ -146,7 +147,7 @@ export default class CalendarStrip extends Component {
     componentWillUpdate(nextProps, nextState) {
         if (nextState.selectedDate === this.state.selectedDate) {
             this.resetAnimation();
-            this.animate();
+            //this.animate();
         }
     }
 
@@ -300,7 +301,7 @@ export default class CalendarStrip extends Component {
 
     //Function to animate showing the CalendarDay elements.
     //Possible cases for animations are sequence and parallel
-    animate() {
+    /*animate() {
         if (this.props.calendarAnimation) {
             let animations = arr.map((item) => {
                 return Animated.timing(
@@ -323,7 +324,7 @@ export default class CalendarStrip extends Component {
                 }
             }
         }
-    }
+    }*/
 
     //Function that formats the calendar header
     //It also formats the month section if the week is in between months
@@ -394,10 +395,11 @@ export default class CalendarStrip extends Component {
                     <View>
                         { this.props.showDate && calendarHeader }
                         <View style={styles.datesStrip}>
-                            <TouchableOpacity style={[styles.iconContainer, this.props.iconContainer]} onPress={this.getPreviousWeek}>
+                            <TouchableOpacity style={[styles.iconContainerLeft, this.props.iconContainer]} onPress={this.getPreviousWeek}>
                                 { leftSelector }
                             </TouchableOpacity>
                             <DraggableView onSwipeLeft={this.props.onSwipeLeft} onSwipeRight={this.props.onSwipeRight}>
+                            
                             { this.props.showDate ?
                               <View style={styles.calendarDates}>
                                   {datesRender}
@@ -406,7 +408,7 @@ export default class CalendarStrip extends Component {
                               calendarHeader
                             }
                             </DraggableView>
-                            <TouchableOpacity style={[styles.iconContainer, this.props.iconContainer]} onPress={this.getNextWeek}>
+                            <TouchableOpacity style={[styles.iconContainerRight, this.props.iconContainer]} onPress={this.getNextWeek}>
                                 { rightSelector }
                             </TouchableOpacity>
                       </View>

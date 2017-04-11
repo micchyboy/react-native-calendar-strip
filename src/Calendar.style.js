@@ -29,9 +29,15 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         alignSelf: 'center',
     },
-    iconContainer: {
-        justifyContent: 'center',
-        alignItems: 'center'
+    iconContainerLeft: {
+        position: 'absolute',
+        left: 0,
+        top: 10
+    },
+    iconContainerRight: {
+        position: 'absolute',
+        right: 0,
+        top: 10
     },
     icon: {
         width: 20,
