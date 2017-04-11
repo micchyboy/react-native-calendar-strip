@@ -32,12 +32,14 @@ export default StyleSheet.create({
     iconContainerLeft: {
         position: 'absolute',
         left: 0,
-        top: 10
+        top: 10,
+        zIndex: 5
     },
     iconContainerRight: {
         position: 'absolute',
         right: 0,
-        top: 10
+        top: 10,
+        zIndex: 5
     },
     icon: {
         width: 20,
