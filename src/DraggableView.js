@@ -42,8 +42,13 @@ export default class DraggableView extends React.Component {
            {toValue: {x: 0}} // Back to zero
          ).start();
        },
-       onMoveShouldSetPanResponder: () => {
+       onMoveShouldSetPanResponder: (evt, gestureState) => {
+        if(gestureState.dx < -5 || gestureState.dx > 5) {
           return true;
+        }
+        else {
+          return false;
+        }
         }
      });
    }
