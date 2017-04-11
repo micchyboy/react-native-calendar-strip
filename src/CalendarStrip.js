@@ -77,7 +77,7 @@ export default class CalendarStrip extends Component {
 
     static defaultProps = {
         startingDate: moment(),
-        useIsoWeekday: false,
+        useIsoWeekday: true,
         showMonth: true,
         showDate: true,
         iconLeft: require('./img/left-arrow-black.png'),
