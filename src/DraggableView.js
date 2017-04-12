@@ -19,8 +19,7 @@ export default class DraggableView extends React.Component {
      super(props);
      this.state = {
        pan: new Animated.ValueXY(),
-       fadeAnim: new Animated.ValueXY({x: props.right ? width : 0, y: 0}),
-       left: 0 // inits to zero
+       fadeAnim: new Animated.ValueXY({x: 0, y: 0})
      };
      this.state.panResponder = PanResponder.create({
        onStartShouldSetPanResponder: () => true,
@@ -54,7 +53,7 @@ export default class DraggableView extends React.Component {
    }
 
    resetAnimation(origin) {
-        this.setState({fadeAnim: new Animated.ValueXY({x: origin === 'left' ? width : 0, y: 0})},
+        this.setState({fadeAnim: new Animated.ValueXY({x: origin === 'left' ? width : -width, y: 0})},
           this.triggerSlideIn)
     }
 
@@ -62,16 +61,11 @@ export default class DraggableView extends React.Component {
         this.triggerSlideIn()
     }
 
-    layout(evt){
-            const width = evt.nativeEvent.layout.width
-            this.setState({left: -width * 0.5})
-        }
-
     triggerSlideIn(){
       Animated.timing(       // Uses easing functions
         this.state.fadeAnim, // The value to drive
         {
-          toValue: {x: width * 0.5, y: 0},        // Target
+          toValue: {x: 0, y: 0},        // Target
           duration: 200,    // Configuration
         },
       ).start();  
@@ -81,13 +75,11 @@ export default class DraggableView extends React.Component {
        <Animated.View
          {...this.state.panResponder.panHandlers}
          style={this.state.pan.getLayout()}>
-         <Animated.View style={{transform: this.state.fadeAnim.getTranslateTransform(),
-         
-          left: this.state.left}} >
-          <View onLayout={this.layout.bind(this)}>
-              {this.props.children}
-              </View>
-              </Animated.View>
+         <Animated.View style={{transform: this.state.fadeAnim.getTranslateTransform()}} >
+          <View>
+            {this.props.children}
+          </View>
+          </Animated.View>
        </Animated.View>
      );
    }
